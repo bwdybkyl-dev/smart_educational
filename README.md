@@ -1,16 +1,40 @@
-# smart_educational
+# المستشار التعليمي الذكي | Smart Educational Advisory App
 
-A new Flutter project.
+تطبيق Flutter عربي (RTL) يعمل بوضع بيانات تجريبية محلياً لمساعدة الطلاب على اكتشاف التخصصات، إجراء اختبار ميول، الحصول على توصيات، وطلب استشارات ومواعيد. لا يحتوي المشروع على Backend أو Firebase أو مفاتيح سرية.
 
-## Getting Started
+## المزايا
+- واجهات Splash وOnboarding وتسجيل الدخول والتسجيل واستعادة كلمة المرور.
+- لوحات مستقلة للطالب والمستشار والإدارة، مع تنقل Material 3 متجاوب ودعم الضوء والظلام.
+- اختبار تفاعلي يمنع تجاوز الأسئلة غير المجابة، ثم يحسب توصيات مرتبة.
+- دليل تخصصات وبطاقات تفاصيل، مفضلة واجهة، استشارات قابلة للإنشاء، محادثة محلية، ومواعيد.
+- إحصاءات إدارة، مخطط نمو مخصص، وواجهات إدارة للطلاب والمستشارين والتخصصات والأسئلة وقواعد التوصية والتقارير.
 
-This project is a starting point for a Flutter application.
+## البنية
+- `lib/core`: الثيم والتحقق من النماذج.
+- `lib/models`: نماذج المجال لكل الكيانات الأساسية.
+- `lib/repositories`: عقود repository المستقلة عن المصدر.
+- `lib/data/mock_data.dart`: بيانات محلية واقعية للمراجعة دون شبكة.
+- `lib/services`: خدمات المصادقة، الاختبار، التوصية، الاستشارات، المواعيد، الإشعارات والبحث.
+- `lib/features`: شاشات المصادقة والطالب والاختبار والمستشار والإدارة.
+- `lib/widgets`: عناصر واجهة قابلة لإعادة الاستخدام.
 
-A few resources to get you started if this is your first Flutter project:
+## إدارة الحالة
+تستخدم الشاشات حالة Flutter المحلية الخفيفة (`StatefulWidget`) في وضع الـMock. طبقة الخدمات والعقود تفصل واجهة العرض عن البيانات، وتسمح بإدخال Riverpod لاحقاً دون تغيير نماذج المجال أو العقود.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## خوارزمية التوصية
+`RecommendationService` يدمج درجة إجابات الأسئلة الموزونة (65%)، تطابق المهارات (20%)، تطابق الاهتمامات (12%)، والمعدل (حتى 3%)؛ ثم يعيد النتائج مرتبة مع أسباب، مهارات متطابقة، ومهارات تحتاج التطوير.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## الأدوار
+- **student:** رحلة الطالب ولوحة التخصصات والاستشارات.
+- **advisor:** لوحة مؤشرات الاستشارات للمستشار.
+- **admin:** لوحة إحصاءات وإدارة المحتوى.
+
+تُعد واجهات `AuthRepository` وعقود المستودعات نقطة دمج مناسبة لتنفيذ حراسة المسارات الفعلية عند إضافة المصادقة.
+
+## التشغيل
+1. جهّز Flutter SDK محلياً.
+2. ثبّت الحزم باستخدام Flutter حسب بيئتك.
+3. شغّل التطبيق على جهاز Android أو محاكي.
+
+## استبدال Mock بـFirebase لاحقاً
+أنشئ تطبيقات Firebase لعقود `AuthRepository` و`MajorRepository` و`QuestionRepository` و`ConsultationRepository` و`AppointmentRepository` وغيرها، ثم مرّرها إلى الخدمات بدلاً من البيانات في `MockData`. لا تحتاج طبقة العرض أو نماذج المجال إلى تغيير؛ أضف كذلك Firebase Auth وFirestore وStorage وFCM وإعداداتها بأمان في مرحلة التكامل.
