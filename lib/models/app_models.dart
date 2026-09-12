@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+enum UserRole { student, advisor, admin }
+enum ConsultationStatus { pending, assigned, inProgress, answered, closed, cancelled }
+
+class UserModel { const UserModel({required this.id, required this.name, required this.email, required this.role, this.phone = '', this.city = '', this.gpa = 0, this.interests = const [], this.skills = const []}); final String id, name, email, phone, city; final UserRole role; final double gpa; final List<String> interests, skills; }
+class StudentModel extends UserModel { const StudentModel({required super.id, required super.name, required super.email, super.phone, super.city, super.gpa, super.interests, super.skills, this.academicLevel = 'الثانوية العامة'}):super(role: UserRole.student); final String academicLevel; }
+class AdvisorModel extends UserModel { const AdvisorModel({required super.id, required super.name, required super.email, required this.specialty, required this.experience, this.rating = 4.8}):super(role: UserRole.advisor); final String specialty, experience; final double rating; }
+class AdminModel extends UserModel { const AdminModel({required super.id, required super.name, required super.email}):super(role: UserRole.admin); }
+class SkillModel { const SkillModel({required this.id, required this.name, required this.description, required this.level, required this.developmentTip}); final String id,name,description,level,developmentTip; }
+class InterestModel { const InterestModel({required this.id,required this.name,required this.icon}); final String id,name; final IconData icon; }
+class SubjectModel { const SubjectModel({required this.name,required this.description}); final String name,description; }
+class CareerPathModel { const CareerPathModel({required this.title,required this.description}); final String title,description; }
+class MajorModel { const MajorModel({required this.id,required this.name,required this.description,required this.category,required this.requiredSkills,required this.relatedInterests,required this.subjects,required this.careers, required this.duration, required this.difficulty, this.degreeLevel='بكالوريوس', this.isActive=true}); final String id,name,description,category,duration,difficulty,degreeLevel; final List<String> requiredSkills,relatedInterests; final List<SubjectModel> subjects; final List<CareerPathModel> careers; final bool isActive; }
+class QuestionOptionModel { const QuestionOptionModel({required this.label,required this.value}); final String label; final int value; }
+class QuestionModel { const QuestionModel({required this.id,required this.questionText,required this.category,required this.options,required this.weight,required this.relatedSkills,required this.relatedMajors,required this.order, this.isActive=true}); final String id,questionText,category; final List<QuestionOptionModel> options; final int weight,order; final List<String> relatedSkills,relatedMajors; final bool isActive; }
+class AssessmentModel { const AssessmentModel({required this.id,required this.title,required this.questions,required this.estimatedMinutes}); final String id,title; final List<QuestionModel> questions; final int estimatedMinutes; }
+class AssessmentAnswerModel { const AssessmentAnswerModel({required this.questionId,required this.value}); final String questionId; final int value; }
+class AssessmentResultModel { const AssessmentResultModel({required this.id,required this.studentId,required this.answers,required this.completedAt}); final String id,studentId; final List<AssessmentAnswerModel> answers; final DateTime completedAt; }
+class RecommendationModel { const RecommendationModel({required this.major,required this.score,required this.reasons,required this.matchedSkills,required this.missingSkills}); final MajorModel major; final double score; final List<String> reasons,matchedSkills,missingSkills; String get level => score >= 80 ? 'مناسب جداً' : score >= 65 ? 'مناسب' : score >= 45 ? 'مناسب إلى حد ما' : 'يحتاج إلى تطوير'; }
+class ConsultationModel { const ConsultationModel({required this.id,required this.title,required this.description,required this.status,required this.createdAt,required this.studentName, this.advisorName}); final String id,title,description,studentName; final ConsultationStatus status; final DateTime createdAt; final String? advisorName; }
+class MessageModel { const MessageModel({required this.id,required this.content,required this.senderId,required this.sentAt, this.isRead=false}); final String id,content,senderId; final DateTime sentAt; final bool isRead; }
+class AppointmentModel { const AppointmentModel({required this.id,required this.advisorName,required this.date,required this.reason,required this.status}); final String id,advisorName,reason,status; final DateTime date; }
+class AvailabilityModel { const AvailabilityModel({required this.day,required this.slots}); final String day; final List<String> slots; }
+class RatingModel { const RatingModel({required this.advisorName,required this.score,required this.comment}); final String advisorName,comment; final double score; }
+class NotificationModel { const NotificationModel({required this.id,required this.title,required this.body,required this.time, this.read=false}); final String id,title,body,time; final bool read; }
