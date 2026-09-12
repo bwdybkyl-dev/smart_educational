@@ -1,0 +1,3 @@
+import 'package:flutter/material.dart';
+import '../../../../data/mock/mock_data.dart';
+class CallHistoryScreen extends StatelessWidget { const CallHistoryScreen({super.key}); @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: const Text('سجل المكالمات')), body: ListView(padding: const EdgeInsets.all(20), children: MockData.calls.map((call) => Card(child: ListTile(leading: const Icon(Icons.call), title: Text(call.participant.name), subtitle: Text('${call.startedAt.day}/${call.startedAt.month} · ${call.durationLabel}'), trailing: Icon(call.status.name == 'missed' ? Icons.call_missed : Icons.call_end)))).toList())); }

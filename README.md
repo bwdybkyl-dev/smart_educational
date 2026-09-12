@@ -1,16 +1,24 @@
-# smart_educational
+# المستشار التعليمي الذكي
 
-A new Flutter project.
+تطبيق Flutter عربي يعمل محلياً ببيانات Mock فقط، ومصمم ليكون أساساً منظماً لنظام إرشاد تعليمي للطالب والمستشار والإدارة.
 
-## Getting Started
+## المعمارية
 
-This project is a starting point for a Flutter application.
+- `lib/app`: نقطة تركيب التطبيق، الثوابت والمسارات والموجّه.
+- `lib/core`: الثيم، الألوان، المسافات، والتحقق من النماذج.
+- `lib/models`: نماذج مجال مستقلة للتخصصات والمستخدمين والاختبارات والتوصيات.
+- `lib/data/mock`: بيانات واقعية محلية كافية لعرض القوائم والتفاصيل.
+- `lib/features`: كل ميزة في مساحة مستقلة، مع فصل الشاشات ووحدات الاستشارة والمحادثة.
+- `lib/features/consultations/data`: نماذج المحادثة، العقود، والتنفيذات المحلية القابلة للاستبدال.
 
-A few resources to get you started if this is your first Flutter project:
+## المحادثات والاستشارات
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+يدعم وضع Mock محادثات نصية، رسائل نظام، مرفقات صورة وملف، رسالة صوتية مرئية، حالات إرسال وقراءة وفشل، رد على رسالة، تفاعلات، مؤشر كتابة، مكالمة مرئية محاكاة، سجل مكالمات، واستشارة فورية. لا يوجد اتصال شبكة أو تسجيل صوت حقيقي.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## الاستبدال بـ Firebase لاحقاً
+
+تستخدم واجهة العرض `MessageRepository` و`ConsultationRepository` و`CallRepository` و`ReactionRepository`. يمكن إضافة تنفيذات Firebase لاحقاً للعقود نفسها واستبدال `MockMessageRepository` وغيرها عبر طبقة dependencies، من دون نقل منطق المحادثة إلى الواجهات.
+
+## ملاحظة
+
+لا يحتوي المستودع على Firebase أو Backend أو مفاتيح أو API. ولم يتم تشغيل Flutter أو تثبيت حزم أو بناء التطبيق ضمن هذا التغيير.
